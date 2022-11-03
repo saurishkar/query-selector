@@ -1,22 +1,27 @@
 import Table from "react-bootstrap/Table";
 
-export const QueryResults = ({ results = [] }) => {
+export const QueryResults = ({ results = [], header }) => {
   if (results.length === 0) return "";
+
   const renderTableHeader = () => (
     <tr>
-      {Object.keys(results[0]).map((columnName) => (
-        <th>{columnName}</th>
+      {Object.keys(header).map((columnName) => (
+        <th key={columnName}>{columnName}</th>
       ))}
     </tr>
   );
   const renderTableBody = () => {
     return (
       <tbody>
-        {results.slice(1, 5).map((tuple) => {
+        {results.map((tuple, index) => {
           return (
-            <tr key={`row-${tuple}`}>
-              {Object.values(tuple).map((val) => (
-                <td>{val}</td>
+            <tr key={`row-${index}`}>
+              {Object.values(tuple).map((val, colIndex) => (
+                <td key={`col-${colIndex}`}>
+                  {typeof val === "object" ? JSON.stringify(val) : val}
+                </td>
+                // Some records in the data have nested objects
+                // For the purpose of stub, the nested data has been stringified.
               ))}
             </tr>
           );
@@ -26,9 +31,11 @@ export const QueryResults = ({ results = [] }) => {
   };
 
   return (
-    <Table responsive bordered size="sm">
-      {renderTableHeader()}
-      {renderTableBody()}
-    </Table>
+    <>
+      <Table responsive bordered className="mt-5" striped>
+        <thead>{renderTableHeader()}</thead>
+        {renderTableBody()}
+      </Table>
+    </>
   );
 };

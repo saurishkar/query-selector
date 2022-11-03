@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import range from "lodash/range";
@@ -25,6 +25,10 @@ export const Paginate = ({ size = 0, children }) => {
     setCurrentPage(1);
 		setRecordsPerPage(value);
   };
+
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [size]);
 
   return (
     <div className="mt-5">

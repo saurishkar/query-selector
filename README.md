@@ -11,6 +11,7 @@ React 18
 
 ## Performance
 Handled performant rendering of a large set of records by wrapping the list inside a pagination component.
+Google Page Speed Insight Score shows a 100 percent score in site performance both in mobile and desktop.
 
 ## Additional
 Paginate component provides you with custom options of selecting the number of records per page.
